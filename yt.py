@@ -23,13 +23,14 @@ def save_subtitles_to_file(video_url):
             start_time = seconds_to_hms(subtitle['start'])
             end_time = seconds_to_hms(subtitle['duration'])
             subtitle_text+=f"{start_time} - {end_time}: {subtitle['text']} ;"
-        # print(subtitle_text)
+        print(subtitle_text)
     except Exception as e:
         print(f"Error: {e}")
 
 # to input url and send for subtitle extraction
 def sub_runner():
     video_url=input('Enter Video URL: ').strip()
+    print(video_url)
     save_subtitles_to_file(video_url)
 
 # to generate an answer to a prompt from chatGPT
@@ -44,12 +45,12 @@ def get_completion(prompt, model="gpt-3.5-turbo-16k"):
 
 # to store previous messages in chat and generate answer to prompts on the basis of history of conversation
 def get_completion_from_messages(messages, model="gpt-3.5-turbo-16k", temperature=0):
-    response = openai.ChatCompletion.create(
+     response = openai.ChatCompletion.create(
         model=model,
         messages=messages,
         temperature=temperature, # this is the degree of randomness of the model's output
     )
-    return response.choices[0].message["content"]
+     return response.choices[0].message["content"]
 
 # to collect all the messages together and generate an array for conversations
 def collect_messages(text,context):
